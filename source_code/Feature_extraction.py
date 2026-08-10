@@ -33,8 +33,9 @@ class FeatureExtractor:
                 creation_date = creation_date[0]
 
             if isinstance(creation_date, datetime):
+                creation_date = creation_date.replace(tzinfo=None)
                 age = (datetime.now() - creation_date).days
-                return age
+                return age if age > 0 else 0
 
         except Exception:
             return -1
@@ -58,22 +59,8 @@ class FeatureExtractor:
         features["digit_count"] = sum(x.isdigit() for x in input)
 
         features["domain_entropy"] = self.calculate_entropy(extracted.domain)
-        features["domain_age"] = self.calculate_domain_age(extracted.domain)
+        features["domain_age"] = self.calculate_domain_age(f"{extracted.domain}.{extracted.suffix}")
 
         return features
 
-#testing
-if __name__ == "__main__":
-    extractor = FeatureExtractor()
-    
-    # Try a known, old domain
-    test_legit = "admin@tilburguniversity.edu"
-    print("Legit Features:")
-    print(extractor.extract_features(test_legit))
-    
-    print("\n---")
-    
-    # Try a highly random, fake domain
-    test_phish = "http://login-update-xjk89s2f.com/auth"
-    print("Phishing Features:")
-    print(extractor.extract_features(test_phish))
+
