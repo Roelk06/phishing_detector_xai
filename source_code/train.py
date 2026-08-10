@@ -39,8 +39,9 @@ def mock_data():
     
     return pd.concat([legit, phish], ignore_index=True)
 
-def train_model(data):
+def train_model():
     print("generating training data...")
+    data = mock_data()
 
     X = data.drop(columns=['is_phishing'])
     y = data['is_phishing']
@@ -53,7 +54,7 @@ def train_model(data):
 
     predictions = model.predict(x_test)
     accuracy = accuracy_score(y_test, predictions)
-    print(f"Model accuracy: {accuracy:.4f}")
+    print(f"Model accuracy: {accuracy * 100:.2f}%")
 
     print("Setting up explainer...")
     explainer = shap.TreeExplainer(model)
