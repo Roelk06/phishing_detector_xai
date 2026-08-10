@@ -1,4 +1,3 @@
-from pydoc import text
 import re
 import math
 import whois
