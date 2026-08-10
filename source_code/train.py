@@ -19,8 +19,8 @@ def mock_data():
         'apenstaartje_count': np.random.poisson(0, 500),
         'digit_count': np.random.poisson(1, 500),
         'domain_entropy': np.random.normal(3.0, 0.5, 500),
-        'domain_age': np.random.normal(3000, 1000, 500),
-        'is_phishing': 0  # Our target variable (0 = Safe)
+        'domain_age': np.random.normal(100, 50, 500), 
+        'is_phishing': 0  # Our target variable
     })
     
     # 2. Generate 500 'Phishing' URLs
@@ -33,8 +33,8 @@ def mock_data():
         'apenstaartje_count': np.random.poisson(0.5, 500),
         'digit_count': np.random.poisson(8, 500),
         'domain_entropy': np.random.normal(4.5, 0.4, 500),
-        'domain_age': np.random.choice([-1, 10, 50], 500), # Notice the -1s!
-        'is_phishing': 1  # Our target variable (1 = Phishing)
+        'domain_age': np.random.choice([-1, 50, 100], 500),
+        'is_phishing': 1  # Our target variable
     })
     
     return pd.concat([legit, phish], ignore_index=True)
