@@ -43,6 +43,8 @@ def train_model():
     best_model = grid_search.best_estimator_
     predictions = best_model.predict(x_test)
     accuracy = accuracy_score(y_test, predictions)
+    print(f"Best Model Accuracy: {accuracy * 100:.2f}%")
+
     explainer = shap.TreeExplainer(best_model)
 
     best_model.save_model("models/xgboost_grid_search_model.json")
