@@ -4,7 +4,7 @@ import shap
 import pickle
 from sklearn.model_selection import train_test_split, GridSearchCV
 from sklearn.metrics import accuracy_score
-from source_code.feature_extraction import FeatureExtractor
+from feature_extraction import FeatureExtractor
 
 def process_data():
     try:
@@ -19,7 +19,7 @@ def process_data():
     for index, row in df.iterrows():
         url = row["url"]
         features = extractor.extract_features(url)
-        features["is_phishing"] = row["is_phishing"]
+        features["is_phishing"] = row["label"]
         feature_list.append(features)
 
     return pd.DataFrame(feature_list)
